@@ -185,7 +185,6 @@ class _ClearableAutofocusExampleState extends State<_ClearableAutofocusExample> 
             padding: const EdgeInsets.all(16),
             child: MathField(
               keyboardType: MathKeyboardType.calculator,
-              autofocus: true,
               controller: _controller,
               onChanged: (value) {
                 if (value == '\\Box') {
@@ -212,7 +211,10 @@ class _ClearableAutofocusExampleState extends State<_ClearableAutofocusExample> 
                 suffix: MouseRegion(
                   cursor: MaterialStateMouseCursor.clickable,
                   child: GestureDetector(
-                    onTap: _controller.clear,
+                    onTap: () {
+                      _controller.clear;
+                      _result = "";
+                    },
                     child: const Icon(
                       Icons.highlight_remove,
                       color: Colors.grey,

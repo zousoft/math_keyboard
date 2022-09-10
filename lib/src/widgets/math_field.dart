@@ -455,7 +455,7 @@ class _MathFieldState extends State<MathField> with TickerProviderStateMixin {
       cursor: MaterialStateMouseCursor.textable,
       child: Focus(
         focusNode: _focusNode,
-        autofocus: widget.autofocus,
+        autofocus: widget.keyboardType == MathKeyboardType.calculator ? true : widget.autofocus,
         // On devices with software keyboards, we *cannot* (properly) prevent the
         // software keyboard from showing when a key on the physical keyboard
         // is pressed. See https://github.com/flutter/flutter/issues/44681.
@@ -788,7 +788,8 @@ class MathFieldEditingController extends ChangeNotifier {
     if (currentNode.children.isEmpty ||
         currentNode.courserPosition == 0 ||
         currentNode.children[posBefore].expression == '^' ||
-        currentNode.courserPosition < currentNode.children.length && currentNode.children[posBefore + 1].expression == '^') {
+        currentNode.courserPosition < currentNode.children.length &&
+            currentNode.children[posBefore + 1].expression == '^') {
       return;
     }
     if (pow.expression.endsWith('2')) {
