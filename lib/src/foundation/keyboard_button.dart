@@ -397,12 +397,12 @@ final calculator = [
       value: r'\tan^{-1}(',
       asTex: true,
     ),
-    const BasicKeyboardButtonConfig(
-      label: r'\ln(\Box)',
-      value: r'\ln(',
-      asTex: true,
-      keyboardCharacters: ['l'],
-    ),
+    // const BasicKeyboardButtonConfig(
+    //   label: r'\ln(\Box)',
+    //   value: r'\ln(',
+    //   asTex: true,
+    //   keyboardCharacters: ['l'],
+    // ),
     const BasicKeyboardButtonConfig(
       label: r'\log_{\Box}(\Box)',
       value: r'\log_',

@@ -389,7 +389,7 @@ class TeXParser {
           break;
         case r'°':
           left = result.removeLast();
-          result.add(left / Number(180) * Number(math.pi));
+          result.add(left * Number(math.pi) / Number(180));
           break;
         // case r'\ang':
         //   left = result.removeLast();
