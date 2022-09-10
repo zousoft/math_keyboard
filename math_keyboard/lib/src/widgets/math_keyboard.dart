@@ -21,6 +21,8 @@ enum MathKeyboardType {
 
   /// Keyboard for number input only.
   numberOnly,
+
+  /// Keyboard with all keys for a calculator
   calculator,
 }
 

@@ -299,6 +299,7 @@ final numberKeyboard = [
   ],
 ];
 
+/// The keyboard layout of calculator
 final calculator = [
   [
     const BasicKeyboardButtonConfig(
