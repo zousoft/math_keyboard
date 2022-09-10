@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:math_keyboard/math_keyboard.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() {
   runApp(const ExampleApp());
@@ -98,7 +99,7 @@ class _DemoPageState extends State<DemoPage> {
                   icon: Icon(Icons.hourglass_empty_outlined),
                 ),
                 BottomNavigationBarItem(
-                  label: 'Autofocus',
+                  label: 'Calculator',
                   icon: Icon(Icons.auto_awesome),
                 ),
               ],
@@ -161,13 +162,12 @@ class _ClearableAutofocusExample extends StatefulWidget {
   const _ClearableAutofocusExample({Key? key}) : super(key: key);
 
   @override
-  _ClearableAutofocusExampleState createState() =>
-      _ClearableAutofocusExampleState();
+  _ClearableAutofocusExampleState createState() => _ClearableAutofocusExampleState();
 }
 
-class _ClearableAutofocusExampleState
-    extends State<_ClearableAutofocusExample> {
+class _ClearableAutofocusExampleState extends State<_ClearableAutofocusExample> {
   late final _controller = MathFieldEditingController();
+  String _result = "";
 
   @override
   void dispose() {
@@ -177,21 +177,44 @@ class _ClearableAutofocusExampleState
 
   @override
   Widget build(BuildContext context) {
+    var textStyle = TextStyle(color: Colors.blueGrey, fontStyle: FontStyle.normal, fontSize: 32);
     return SafeArea(
       child: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.all(16),
             child: MathField(
-              autofocus: true,
+              keyboardType: MathKeyboardType.calculator,
+              //autofocus: true,
               controller: _controller,
+              onChanged: (value) {
+                if (value == "\\Box") {
+                  _result = "";
+                } else {
+                  try {
+                    double tmpResult = TeXParser(value).parse().evaluate(EvaluationType.REAL, ContextModel());
+                    _result = tmpResult.toStringAsFixed(14);
+                  } catch (_) {
+                    _result = 'invalid input';
+                  }
+                  if (_result.contains('.')) {
+                    while (_result.endsWith("0")) {
+                      _result = _result.substring(0, _result.length - 1);
+                    }
+                    if (_result.endsWith(".")) {
+                      _result = _result.substring(0, _result.length - 1);
+                    }
+                  }
+                }
+                setState(() {});
+              },
               decoration: InputDecoration(
                 suffix: MouseRegion(
                   cursor: MaterialStateMouseCursor.clickable,
                   child: GestureDetector(
                     onTap: _controller.clear,
                     child: const Icon(
-                      Icons.highlight_remove_rounded,
+                      Icons.highlight_remove,
                       color: Colors.grey,
                     ),
                   ),
@@ -199,13 +222,12 @@ class _ClearableAutofocusExampleState
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(16),
-            child: Text(
-              'The math field on this tab should automatically receive '
-              'focus.',
-              textAlign: TextAlign.center,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TextButton(onPressed: () {}, child: Text(_result.isEmpty ? ' ' : '=', style: textStyle)),
+              TextButton(onPressed: () {}, child: Text(_result, style: textStyle)),
+            ],
           ),
         ],
       ),

@@ -298,3 +298,176 @@ final numberKeyboard = [
     SubmitButtonConfig(),
   ],
 ];
+
+final calculator = [
+  [
+    const BasicKeyboardButtonConfig(
+      label: r'\frac{\Box}{\Box}',
+      value: r'\frac',
+      args: [TeXArg.braces, TeXArg.braces],
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\Box^2',
+      value: '^2',
+      args: [TeXArg.braces],
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\Box^{\Box}',
+      value: '^',
+      args: [TeXArg.braces],
+      asTex: true,
+      keyboardCharacters: [
+        '^',
+        // This is a workaround for keyboard layout that use ^ as a toggle key.
+        // In that case, "Dead" is reported as the character (e.g. for German
+        // keyboards).
+        'Dead',
+      ],
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\sqrt{\Box}',
+      value: r'\sqrt',
+      args: [TeXArg.braces],
+      asTex: true,
+      keyboardCharacters: ['r'],
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\sqrt[\Box]{\Box}',
+      value: r'\sqrt',
+      args: [TeXArg.brackets, TeXArg.braces],
+      asTex: true,
+    ),
+  ],
+  [
+    const BasicKeyboardButtonConfig(
+      label: r'∠ °',
+      value: r'°',
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\sin',
+      value: r'\sin(',
+      asTex: true,
+      keyboardCharacters: ['s'],
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\cos',
+      value: r'\cos(',
+      asTex: true,
+      keyboardCharacters: ['c'],
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\tan',
+      value: r'\tan(',
+      asTex: true,
+      keyboardCharacters: ['t'],
+    ),
+    const BasicKeyboardButtonConfig(
+      label: 'π',
+      value: r'{\pi}',
+      keyboardCharacters: ['p'],
+    ),
+    const BasicKeyboardButtonConfig(
+      label: 'e',
+      value: '{e}',
+      keyboardCharacters: ['e'],
+    ),
+    const BasicKeyboardButtonConfig(
+      label: 'n!',
+      value: '!',
+      keyboardCharacters: ['e'],
+    ),
+  ],
+  [
+    const BasicKeyboardButtonConfig(
+      label: r'\sin^{-1}',
+      value: r'\sin^{-1}(',
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\cos^{-1}',
+      value: r'\cos^{-1}(',
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\tan^{-1}',
+      value: r'\tan^{-1}(',
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\ln(\Box)',
+      value: r'\ln(',
+      asTex: true,
+      keyboardCharacters: ['l'],
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\log_{\Box}(\Box)',
+      value: r'\log_',
+      asTex: true,
+      args: [TeXArg.braces, TeXArg.parentheses],
+    ),
+  ],
+  [
+    const BasicKeyboardButtonConfig(
+      label: '(',
+      value: '(',
+      highlighted: true,
+      keyboardCharacters: ['('],
+    ),
+    const BasicKeyboardButtonConfig(
+      label: ')',
+      value: ')',
+      highlighted: true,
+      keyboardCharacters: [')'],
+    ),
+    PreviousButtonConfig(),
+    NextButtonConfig(),
+    DeleteButtonConfig(),
+  ],
+  [
+    _digitButtons[7],
+    _digitButtons[8],
+    _digitButtons[9],
+    const BasicKeyboardButtonConfig(
+      label: '+',
+      value: '+',
+      keyboardCharacters: ['+'],
+      highlighted: true,
+    ),
+  ],
+  [
+    _digitButtons[4],
+    _digitButtons[5],
+    _digitButtons[6],
+    _subtractButton,
+  ],
+  [
+    _digitButtons[1],
+    _digitButtons[2],
+    _digitButtons[3],
+    const BasicKeyboardButtonConfig(
+      label: '×',
+      value: r'\cdot',
+      keyboardCharacters: ['*'],
+      highlighted: true,
+    ),
+  ],
+  [
+    BasicKeyboardButtonConfig(label: '.', value: '.', keyboardCharacters: ['.', ',']),
+    _digitButtons[0],
+    const BasicKeyboardButtonConfig(
+      label: r'\%',
+      value: r'\%',
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: '÷',
+      value: r'\frac',
+      keyboardCharacters: ['/'],
+      args: [TeXArg.braces, TeXArg.braces],
+      highlighted: true,
+    ),
+  ],
+];

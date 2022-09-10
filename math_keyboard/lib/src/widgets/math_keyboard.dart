@@ -21,6 +21,7 @@ enum MathKeyboardType {
 
   /// Keyboard for number input only.
   numberOnly,
+  calculator,
 }
 
 /// Widget displaying the math keyboard.
@@ -88,8 +89,7 @@ class MathKeyboard extends StatelessWidget {
                   top: false,
                   child: _KeyboardBody(
                     insetsState: insetsState,
-                    slideAnimation:
-                        slideAnimation == null ? null : curvedSlideAnimation,
+                    slideAnimation: slideAnimation == null ? null : curvedSlideAnimation,
                     child: Padding(
                       padding: const EdgeInsets.only(
                         bottom: 4,
@@ -103,7 +103,7 @@ class MathKeyboard extends StatelessWidget {
                           ),
                           child: Column(
                             children: [
-                              if (type != MathKeyboardType.numberOnly)
+                              if (type != MathKeyboardType.numberOnly && type != MathKeyboardType.calculator)
                                 _Variables(
                                   controller: controller,
                                   variables: variables,
@@ -113,13 +113,12 @@ class MathKeyboard extends StatelessWidget {
                                   top: 4,
                                 ),
                                 child: _Buttons(
+                                  keyboardHeight: type == MathKeyboardType.calculator ? 460 : 230,
                                   controller: controller,
                                   page1: type == MathKeyboardType.numberOnly
                                       ? numberKeyboard
-                                      : standardKeyboard,
-                                  page2: type == MathKeyboardType.numberOnly
-                                      ? null
-                                      : functionKeyboard,
+                                      : (type == MathKeyboardType.expression ? standardKeyboard : calculator),
+                                  page2: type == MathKeyboardType.expression ? functionKeyboard : null,
                                   onSubmit: onSubmit,
                                 ),
                               ),
@@ -210,8 +209,7 @@ class _KeyboardBodyState extends State<_KeyboardBody> {
       if (!mounted) return;
 
       final renderBox = context.findRenderObject() as RenderBox;
-      insetsState[ObjectKey(this)] =
-          renderBox.size.height * (widget.slideAnimation?.value ?? 1);
+      insetsState[ObjectKey(this)] = renderBox.size.height * (widget.slideAnimation?.value ?? 1);
     });
   }
 
@@ -279,6 +277,7 @@ class _Buttons extends StatelessWidget {
   /// Constructs a [_Buttons] Widget.
   const _Buttons({
     Key? key,
+    required this.keyboardHeight,
     required this.controller,
     this.page1,
     this.page2,
@@ -300,15 +299,17 @@ class _Buttons extends StatelessWidget {
   /// Can be `null`.
   final VoidCallback? onSubmit;
 
+  //the height of the while keyboard
+  final double keyboardHeight;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 230,
+      height: keyboardHeight,
       child: AnimatedBuilder(
         animation: controller,
         builder: (context, child) {
-          final layout =
-              controller.secondPage ? page2! : page1 ?? numberKeyboard;
+          final layout = controller.secondPage ? page2! : page1 ?? numberKeyboard;
           return Column(
             children: [
               for (final row in layout)
@@ -340,9 +341,7 @@ class _Buttons extends StatelessWidget {
                         else if (config is PageButtonConfig)
                           _BasicButton(
                             flex: config.flex,
-                            icon: controller.secondPage
-                                ? null
-                                : CustomKeyIcons.key_symbols,
+                            icon: controller.secondPage ? null : CustomKeyIcons.key_symbols,
                             label: controller.secondPage ? '123' : null,
                             onTap: controller.togglePage,
                             highlightLevel: 1,

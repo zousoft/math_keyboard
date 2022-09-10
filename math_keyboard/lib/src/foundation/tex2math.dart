@@ -43,13 +43,11 @@ class TeXParser {
 
     final pi = (string('{') & string(r'\pi') & string('}')).map((a) => math.pi);
     final e = (string('{') & string('e') & string('}')).map((a) => math.e);
-    final variable =
-        (string('{') & letter().plus().flatten() & string('}')).pick(1);
+    final variable = (string('{') & letter().plus().flatten() & string('}')).pick(1);
 
     final basic = (number | pi | e | variable).map((v) => [v, 'b']);
 
-    final sqrt =
-        (string(r'\sqrt') & char('{').and()).map((v) => [r'\sqrt', 'f']);
+    final sqrt = (string(r'\sqrt') & char('{').and()).map((v) => [r'\sqrt', 'f']);
     final nrt = (string(r'\sqrt') & char('[').and()).map((v) => [r'\nrt', 'f']);
     final simpleFunction = ((string(r'\sin^{-1}') |
                 string(r'\cos^{-1}') |
@@ -61,15 +59,12 @@ class TeXParser {
             string('(').and())
         .pick(0)
         .map((v) => [v, 'f']);
-    final otherFunction =
-        (string(r'\frac') | string(r'\log')).map((v) => [v, 'f']);
+    final otherFunction = (string(r'\frac') | string(r'\log')).map((v) => [v, 'f']);
     final function = simpleFunction | otherFunction | sqrt | nrt;
 
-    final lp = (string('(') | char('{') | string(r'\left|') | char('['))
-        .map((v) => [v, 'l']);
+    final lp = (string('(') | char('{') | string(r'\left|') | char('[')).map((v) => [v, 'l']);
 
-    final rp = (string(')') | char('}') | string(r'\right|') | char(']'))
-        .map((v) => [v, 'r']);
+    final rp = (string(')') | char('}') | string(r'\right|') | char(']')).map((v) => [v, 'r']);
 
     final plus = char('+').map((v) => [
           v,
@@ -106,7 +101,12 @@ class TeXParser {
           ['o', 5, 'l'],
         ]);
 
-    final operator = plus | minus | times | divide | expo | factorial | percent;
+    final degree = string(r'°').map((v) => [
+          v,
+          ['o', 5, 'l'],
+        ]);
+
+    final operator = plus | minus | times | divide | expo | factorial | percent | degree;
 
     final subNumber = (char('_') & digit().map(int.parse)).pick(1);
 
@@ -114,8 +114,7 @@ class TeXParser {
 
     final other = (subNumber | underline).map((v) => [v, 'u']);
 
-    final tokenize =
-        (basic | function | lp | rp | operator | other).star().end();
+    final tokenize = (basic | function | lp | rp | operator | other).star().end();
 
     final tex = inputString.replaceAll(' ', '');
     _stream = tokenize.parse(tex).value;
@@ -285,8 +284,7 @@ class TeXParser {
                 _outputStack.add(_operatorStack.last[0]);
                 _operatorStack.removeLast();
                 continue;
-              } else if (_operatorStack.last[1][1] == _stream[i][1][1] &&
-                  _operatorStack.last[1][2] == 'l') {
+              } else if (_operatorStack.last[1][1] == _stream[i][1][1] && _operatorStack.last[1][2] == 'l') {
                 _outputStack.add(_operatorStack.last[0]);
                 _operatorStack.removeLast();
                 continue;
@@ -385,6 +383,18 @@ class TeXParser {
         case r'\abs':
           result.add(Abs(result.removeLast()));
           break;
+        case r'\%':
+          left = result.removeLast();
+          result.add(left / Number(100));
+          break;
+        case r'°':
+          left = result.removeLast();
+          result.add(left / Number(180) * Number(math.pi));
+          break;
+        // case r'\ang':
+        //   left = result.removeLast();
+        //   result.add(left / Number(180) * Number(math.pi));
+        //   break;
         case '!':
           try {
             addFactorial(result);
