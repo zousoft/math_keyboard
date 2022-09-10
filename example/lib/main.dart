@@ -185,7 +185,7 @@ class _ClearableAutofocusExampleState extends State<_ClearableAutofocusExample> 
             padding: const EdgeInsets.all(16),
             child: MathField(
               keyboardType: MathKeyboardType.calculator,
-              //autofocus: true,
+              autofocus: true,
               controller: _controller,
               onChanged: (value) {
                 if (value == '\\Box') {
