@@ -101,12 +101,20 @@ class TeXParser {
           ['o', 5, 'l'],
         ]);
 
-    final degree = string(r'°').map((v) => [
+    final f_degree = string(r'°F').map((v) => [
+          v,
+          ['o', 1, 'l'],
+        ]);
+    final c_degree = string(r'°C').map((v) => [
+          v,
+          ['o', 1, 'l'],
+        ]);
+    final angle_degree = string(r'°').map((v) => [
           v,
           ['o', 5, 'l'],
         ]);
 
-    final operator = plus | minus | times | divide | expo | factorial | percent | degree;
+    final operator = plus | minus | times | divide | expo | factorial | percent | f_degree | c_degree | angle_degree;
 
     final subNumber = (char('_') & digit().map(int.parse)).pick(1);
 
@@ -386,6 +394,14 @@ class TeXParser {
         case r'\%':
           left = result.removeLast();
           result.add(left / Number(100));
+          break;
+        case r'°F':
+          left = result.removeLast();
+          result.add((left - Number(32)) * Number(5 / 9));
+          break;
+        case r'°C':
+          left = result.removeLast();
+          result.add(left * Number(9 / 5) + Number(32));
           break;
         case r'°':
           left = result.removeLast();

@@ -177,12 +177,13 @@ class _ClearableAutofocusExampleState extends State<_ClearableAutofocusExample> 
 
   @override
   Widget build(BuildContext context) {
+    const double paddingPixels = 14;
     var textStyle = TextStyle(color: Colors.blueGrey, fontStyle: FontStyle.normal, fontSize: 32);
     return SafeArea(
       child: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(paddingPixels),
             child: MathField(
               keyboardType: MathKeyboardType.calculator,
               controller: _controller,
@@ -193,7 +194,11 @@ class _ClearableAutofocusExampleState extends State<_ClearableAutofocusExample> 
                 } else {
                   try {
                     double tmpResult = TeXParser(value).parse().evaluate(EvaluationType.REAL, ContextModel());
-                    _result = tmpResult.toStringAsFixed(14);
+                    if (value.endsWith('°C') || value.endsWith('°F')) {
+                      _result = tmpResult.toStringAsFixed(2);
+                    } else {
+                      _result = tmpResult.toStringAsFixed(14);
+                    }
                   } catch (_) {
                     _result = 'invalid input';
                   }
@@ -205,6 +210,12 @@ class _ClearableAutofocusExampleState extends State<_ClearableAutofocusExample> 
                       _result = _result.substring(0, _result.length - 1);
                     }
                   }
+
+                  if (value.endsWith('°C')) {
+                    _result += '°F';
+                  } else if (value.endsWith('°F')) {
+                    _result += '°C';
+                  }
                 }
                 setState(() {});
               },
@@ -212,10 +223,7 @@ class _ClearableAutofocusExampleState extends State<_ClearableAutofocusExample> 
                 suffix: MouseRegion(
                   cursor: MaterialStateMouseCursor.clickable,
                   child: GestureDetector(
-                    onTap: () {
-                      _controller.clear;
-                      _result = "";
-                    },
+                    onTap: _controller.clear,
                     child: const Icon(
                       Icons.highlight_remove,
                       color: Colors.grey,
@@ -228,8 +236,20 @@ class _ClearableAutofocusExampleState extends State<_ClearableAutofocusExample> 
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              TextButton(onPressed: () {}, child: Text(_result.isEmpty ? ' ' : '=', style: textStyle)),
-              TextButton(onPressed: () {}, child: Text(_result, style: textStyle)),
+              TextButton(
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.only(left: paddingPixels),
+                    minimumSize: Size.zero,
+                  ),
+                  onPressed: () {},
+                  child: Text(_result.isEmpty ? ' ' : '=', style: textStyle)),
+              TextButton(
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.only(left: 5),
+                    minimumSize: Size.zero,
+                  ),
+                  onPressed: () {},
+                  child: Text(_result, style: textStyle)),
             ],
           ),
         ],
