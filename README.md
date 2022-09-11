@@ -10,7 +10,7 @@ no plugins, no web views.
 
 ## Features
 
-<img src="https://zousoft.github.io/assets/image/deep_ocean_calc.jpg" width="260">
+<img src="https://zousoft.github.io/assets/image/deep_ocean_calc.jpg" width="260">  <img src="https://zousoft.github.io/assets/image/example_calc_win.jpg" width="260">
 
 [![](https://i.imgur.com/FYl1TqF.png)][demo]
 
