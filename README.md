@@ -10,7 +10,10 @@ no plugins, no web views.
 
 ## Features
 
+<img src="https://zousoft.github.io/assets/image/deep_ocean_calc.jpg" width="260">
+
 [![](https://i.imgur.com/FYl1TqF.png)][demo]
+
 
 * Editing math expressions using a custom on-screen software keyboard
 * Editing via physical keyboard input (with shortcuts for functions and constants)
