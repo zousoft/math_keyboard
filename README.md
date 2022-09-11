@@ -12,7 +12,7 @@ no plugins, no web views.
 * Supporting 'Calculator' mode that the keyboard alreays shows up with all buttons.
 * Added ∠°, %, °F, °C and n! operators.
 
-<img src="https://zousoft.github.io/assets/image/deep_ocean_calc.jpg" width="260">  <img src="https://zousoft.github.io/assets/image/example_calc_win.jpg" width="260">
+<img src="https://zousoft.github.io/assets/image/deep_ocean_calc.jpg" width="260">  <img src="https://zousoft.github.io/assets/image/example_calc_win.jpg" width="300">
 
 ## Original Features
 
