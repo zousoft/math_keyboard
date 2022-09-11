@@ -379,11 +379,17 @@ final calculator = [
       keyboardCharacters: ['t'],
     ),
     const BasicKeyboardButtonConfig(
-      label: r'\ln(\Box)',
-      value: r'\ln(',
+      label: r'°C',
+      value: r'°C',
       asTex: true,
-      keyboardCharacters: ['l'],
+      keyboardCharacters: ['t'],
     ),
+    // const BasicKeyboardButtonConfig(
+    //   label: r'\ln(\Box)',
+    //   value: r'\ln(',
+    //   asTex: true,
+    //   keyboardCharacters: ['l'],
+    // ),
   ],
   [
     const BasicKeyboardButtonConfig(
@@ -400,12 +406,6 @@ final calculator = [
       label: r'\tan^{-1}',
       value: r'\tan^{-1}(',
       asTex: true,
-    ),
-    const BasicKeyboardButtonConfig(
-      label: r'°C',
-      value: r'°C',
-      asTex: true,
-      keyboardCharacters: ['t'],
     ),
     const BasicKeyboardButtonConfig(
       label: r'\log_{\Box}(\Box)',
