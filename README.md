@@ -8,9 +8,13 @@
 field (so-called "math field") and a custom-made fully integrated math keyboard in _Flutter only_ -
 no plugins, no web views.
 
-## Features
+## New features added by Zousoft
+* Supporting 'Calculator' mode that the keyboard alreays shows up with all buttons.
+* Added ∠°, %, °F, °C and n! operators.
 
 <img src="https://zousoft.github.io/assets/image/deep_ocean_calc.jpg" width="260">  <img src="https://zousoft.github.io/assets/image/example_calc_win.jpg" width="260">
+
+## Original Features
 
 [![](https://i.imgur.com/FYl1TqF.png)][demo]
 
