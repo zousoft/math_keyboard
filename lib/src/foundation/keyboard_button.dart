@@ -77,7 +77,14 @@ class NextButtonConfig extends KeyboardButtonConfig {
 /// Class representing a button configuration of the Submit Button.
 class SubmitButtonConfig extends KeyboardButtonConfig {
   /// Constructs a [SubmitButtonConfig].
-  SubmitButtonConfig({int? flex}) : super(flex: flex);
+  SubmitButtonConfig({int? flex, String? label}) : super(flex: flex) {
+    if (label != null) {
+      buttonLabel = label;
+    }
+  }
+
+  ///show what on the button
+  String buttonLabel = '';
 }
 
 /// Class representing a button configuration of the Page Toggle Button.
@@ -366,19 +373,10 @@ final calculator = [
       keyboardCharacters: ['t'],
     ),
     const BasicKeyboardButtonConfig(
-      label: 'π',
-      value: r'{\pi}',
-      keyboardCharacters: ['p'],
-    ),
-    const BasicKeyboardButtonConfig(
-      label: 'e',
-      value: '{e}',
-      keyboardCharacters: ['e'],
-    ),
-    const BasicKeyboardButtonConfig(
-      label: 'n!',
-      value: '!',
-      keyboardCharacters: ['e'],
+      label: r'\ln(\Box)',
+      value: r'\ln(',
+      asTex: true,
+      keyboardCharacters: ['l'],
     ),
   ],
   [
@@ -397,12 +395,6 @@ final calculator = [
       value: r'\tan^{-1}(',
       asTex: true,
     ),
-    // const BasicKeyboardButtonConfig(
-    //   label: r'\ln(\Box)',
-    //   value: r'\ln(',
-    //   asTex: true,
-    //   keyboardCharacters: ['l'],
-    // ),
     const BasicKeyboardButtonConfig(
       label: r'\log_{\Box}(\Box)',
       value: r'\log_',
@@ -470,5 +462,23 @@ final calculator = [
       args: [TeXArg.braces, TeXArg.braces],
       highlighted: true,
     ),
+  ],
+  [
+    const BasicKeyboardButtonConfig(
+      label: 'π',
+      value: r'{\pi}',
+      keyboardCharacters: ['p'],
+    ),
+    const BasicKeyboardButtonConfig(
+      label: 'e',
+      value: '{e}',
+      keyboardCharacters: ['e'],
+    ),
+    const BasicKeyboardButtonConfig(
+      label: 'n!',
+      value: '!',
+      keyboardCharacters: ['e'],
+    ),
+    SubmitButtonConfig(flex: 2, label: '='),
   ],
 ];

@@ -186,6 +186,7 @@ class _ClearableAutofocusExampleState extends State<_ClearableAutofocusExample> 
             child: MathField(
               keyboardType: MathKeyboardType.calculator,
               controller: _controller,
+              onSubmitted: (value) {},
               onChanged: (value) {
                 if (value == '\\Box') {
                   _result = '';

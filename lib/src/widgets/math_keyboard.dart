@@ -115,7 +115,7 @@ class MathKeyboard extends StatelessWidget {
                                   top: 4,
                                 ),
                                 child: _Buttons(
-                                  keyboardHeight: type == MathKeyboardType.calculator ? 460 : 230,
+                                  keyboardHeight: type == MathKeyboardType.calculator ? 504 : 230,
                                   controller: controller,
                                   page1: type == MathKeyboardType.numberOnly
                                       ? numberKeyboard
@@ -351,19 +351,20 @@ class _Buttons extends StatelessWidget {
                         else if (config is PreviousButtonConfig)
                           _NavigationButton(
                             flex: config.flex,
-                            icon: Icons.chevron_left_rounded,
+                            icon: Icons.arrow_back,
                             onTap: controller.goBack,
                           )
                         else if (config is NextButtonConfig)
                           _NavigationButton(
                             flex: config.flex,
-                            icon: Icons.chevron_right_rounded,
+                            icon: Icons.arrow_forward,
                             onTap: controller.goNext,
                           )
                         else if (config is SubmitButtonConfig)
                           _BasicButton(
                             flex: config.flex,
-                            icon: Icons.keyboard_return,
+                            label: config.buttonLabel.isEmpty ? null : config.buttonLabel,
+                            icon: config.buttonLabel.isEmpty ? Icons.keyboard_return : null,
                             onTap: onSubmit,
                             highlightLevel: 2,
                           ),
@@ -434,11 +435,15 @@ class _BasicButton extends StatelessWidget {
         symbol = decimalSeparator(context);
       }
 
-      result = Text(
-        symbol!,
-        style: const TextStyle(
-          fontSize: 22,
-          color: Colors.white,
+      result = Align(
+        alignment: Alignment.center,
+        child: Text(
+          symbol!,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 28,
+            color: Colors.white,
+          ),
         ),
       );
     }
