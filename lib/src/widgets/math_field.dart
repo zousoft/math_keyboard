@@ -352,6 +352,8 @@ class _MathFieldState extends State<MathField> with TickerProviderStateMixin {
         ...functionKeyboard,
       ] else if (widget.keyboardType == MathKeyboardType.numberOnly) ...[
         ...numberKeyboard,
+      ] else if (widget.keyboardType == MathKeyboardType.calculator) ...[
+        ...calculator,
       ],
     ].fold<List<KeyboardButtonConfig>>([], (previousValue, element) {
       return previousValue..addAll(element);
@@ -788,8 +790,7 @@ class MathFieldEditingController extends ChangeNotifier {
     if (currentNode.children.isEmpty ||
         currentNode.courserPosition == 0 ||
         currentNode.children[posBefore].expression == '^' ||
-        currentNode.courserPosition < currentNode.children.length &&
-            currentNode.children[posBefore + 1].expression == '^') {
+        currentNode.courserPosition < currentNode.children.length && currentNode.children[posBefore + 1].expression == '^') {
       return;
     }
     if (pow.expression.endsWith('2')) {

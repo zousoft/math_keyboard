@@ -465,6 +465,7 @@ final calculator = [
     const BasicKeyboardButtonConfig(
       label: r'\%',
       value: r'\%',
+      keyboardCharacters: ['%'],
       asTex: true,
     ),
     const BasicKeyboardButtonConfig(
@@ -489,7 +490,7 @@ final calculator = [
     const BasicKeyboardButtonConfig(
       label: 'n!',
       value: '!',
-      keyboardCharacters: ['e'],
+      keyboardCharacters: ['!'],
     ),
     SubmitButtonConfig(flex: 2, label: '='),
   ],
